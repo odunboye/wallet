@@ -1,7 +1,5 @@
 package com.ajibigad.wallet.utils;
 
-import com.ajibigad.wallet.services.WalletService;
-
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 
@@ -22,7 +20,6 @@ public final class BigDecimalUtils {
 
     public static BigDecimal multiply(double a, BigDecimal b, boolean round) {
         var result = BigDecimal.valueOf(a).multiply(b);
-
 
         if (round) {
             return result.setScale(2, ROUNDING_MODE);

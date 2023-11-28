@@ -1,24 +1,25 @@
 package com.ajibigad.wallet.entities;
 
-import com.ajibigad.wallet.enums.Currency;
-import com.ajibigad.wallet.enums.TransactionType;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.UuidGenerator;
+
+import com.payonus.walletlib.enums.Currency;
+import com.payonus.walletlib.enums.TransactionType;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
 @Data
-@Entity
+@Entity(name = "wallet_transaction")
 @Builder
+
 public class WalletTransaction {
 
   @Id
-  @GenericGenerator(name = "UUIDGenerator", strategy = "uuid2")
-  @GeneratedValue(generator = "UUIDGenerator")
+  @UuidGenerator
   @Column(name = "id", columnDefinition = "uuid")
   private UUID id;
 
@@ -31,6 +32,7 @@ public class WalletTransaction {
   @Column(columnDefinition = "numeric(18, 2) default 0.0 ", precision = 10, scale = 2)
   private BigDecimal signedAmount;
 
+  @Builder.Default
   @Column(columnDefinition = "varchar(5) default 'NGN' ")
   @Enumerated(EnumType.STRING)
   private Currency currency = Currency.NGN;
@@ -50,10 +52,7 @@ public class WalletTransaction {
 
   @CreationTimestamp
   @Temporal(TemporalType.TIMESTAMP)
-  @Column(
-      name = "created",
-      updatable = false,
-      columnDefinition = "timestamp DEFAULT CURRENT_TIMESTAMP")
+  @Column(name = "created", updatable = false, columnDefinition = "timestamp DEFAULT CURRENT_TIMESTAMP")
   private LocalDateTime created;
 
   @ManyToOne

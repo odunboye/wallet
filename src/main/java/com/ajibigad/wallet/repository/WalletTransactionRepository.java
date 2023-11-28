@@ -13,6 +13,6 @@ import java.util.UUID;
 
 public interface WalletTransactionRepository extends JpaRepository<WalletTransaction, UUID> {
 
-    @Query("select SUM(wt.signedAmount) from WalletTransaction wt where wt.accountNumber = :accountNumber")
+    @Query("select SUM(wt.signedAmount) from wallet_transaction wt where wt.accountNumber = :accountNumber")
     BigDecimal getRolledUpBalance(String accountNumber);
 }

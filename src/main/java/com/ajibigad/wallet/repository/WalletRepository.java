@@ -19,7 +19,7 @@ import java.util.UUID;
 public interface WalletRepository extends JpaRepository<Wallet, UUID> {
 
     @Lock(LockModeType.PESSIMISTIC_WRITE)
-    @QueryHints({@QueryHint(name = "jakarta.persistence.lock.timeout", value ="1000")})
+    @QueryHints({ @QueryHint(name = "jakarta.persistence.lock.timeout", value = "1000") })
     @Query(value = "select w from Wallet w where w.accountNumber IN :accountNumbers order by w.id")
     List<Wallet> findByAccountNumbersWithLock(Set<String> accountNumbers);
 
